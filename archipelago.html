@@ -1,0 +1,38 @@
+<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.19/vue.min.js"></script>
+
+<div id="app">
+    {{ message }}
+
+    <button v-on:click="drawCard">Look for an answer</button>
+</div>
+
+<script>
+const cards = [
+    {
+        type: 'no',
+        text: 'No, but your failure helps another succeed'
+    },
+    {
+        type: 'no',
+        text: 'No, but you earn friendship, an ally or goodwill in the process'
+    },
+    {
+        type: 'no',
+        text: 'No and something unrelated goes badly wrong in the process'
+    }
+];
+
+new Vue({
+    el: '#app',
+    data: {
+        message: 'Draw an outcome'
+    },
+    methods: {
+        drawCard: function() {
+            const chosenIndex = Math.floor(Math.random() * cards.length);
+            const chosenCard = cards[chosenIndex];
+            this.message = chosenCard.text;
+        }
+    }
+})
+</script>
