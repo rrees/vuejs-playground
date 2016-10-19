@@ -3,26 +3,30 @@
 <div id="app">
     {{ message }}
 
-    <input v-model="userMessage" placeholder="Type your name..." v-on:keyup="buildMessage">
-    {{displayMessage}}
+    <input v-model="userMessage" placeholder="Type your name...">
+    {{userMessage}}
+    {{displayMessage()}}
 </div>
 
 <script>
-new Vue({
+
+function calculateDisplayMessage(model) {
+    if(model.userMessage) {
+        return "Hello " + model.userMessage;
+    } else {
+        return undefined;
+    }
+}
+
+const vm = new Vue({
     el: '#app',
     data: {
         message: 'Hello from Vue.js',
-        userMessage: undefined,
-        displayMessage: undefined
+        userMessage: undefined
     },
     methods: {
-        buildMessage: function() {
-            const model = this;
-            if(model.userMessage) {
-                model.displayMessage = "Hello " + model.userMessage;
-            } else {
-                model.displayMessage = undefined;
-            }
+        displayMessage: function() {
+            return calculateDisplayMessage(this);
         }
     }
 })
