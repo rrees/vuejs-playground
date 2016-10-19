@@ -1,9 +1,9 @@
-<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.19/vue.min.js"></script>
+<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
 
 <div id="app">
     {{ message }}
 
-    <input v-model="userMessage">
+    <input v-model="userMessage" placeholder="Type your name...">
     {{userMessage}}
 </div>
 
@@ -12,7 +12,7 @@ new Vue({
     el: '#app',
     data: {
         message: 'Hello from Vue.js',
-        userMessage: 'Hello...'
+        userMessage: ''
     }
 })
 </script>
