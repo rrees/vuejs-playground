@@ -5,7 +5,7 @@
 
     <input v-model="userMessage" placeholder="Type your name...">
     {{userMessage}}
-    {{displayMessage()}}
+    {{displayMessage}}
 </div>
 
 <script>
@@ -24,7 +24,7 @@ const vm = new Vue({
         message: 'Hello from Vue.js',
         userMessage: undefined
     },
-    methods: {
+    computed: {
         displayMessage: function() {
             return calculateDisplayMessage(this);
         }
