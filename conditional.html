@@ -6,7 +6,8 @@
 
 	<body>
 		<div id="app">
-			<p v-if="showPrompt">Send a message</p>
+			<p v-if="showPrompt">Write your message</p>
+			<p v-else>When you are done, send your message</p>
 
 			<textarea v-model="message">
 			</textarea>
