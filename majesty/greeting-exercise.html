@@ -2,12 +2,12 @@
 <html>
 	<head>
 		<meta charset="UTF8">
+		<title>Conditional greetings | Majesty of Vue 2</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	</head>
 
 	<body>
 		<div id="app" class="container-fluid">
-			{{message}}
 
 		<h1>{{banner}}</h1>
 		<form>
@@ -31,6 +31,18 @@
 
 		<script>
 
+			function genderPrefix(gender) {
+				if(gender == "male") {
+					return "Mr.";
+				}
+
+				if(gender == "female") {
+					return "Ms.";
+				}
+
+				return undefined;
+			}
+
 			const vm = new Vue({
 				el: '#app',
 				data: {
@@ -40,9 +52,20 @@
 				},
 				computed: {
 					banner: function() {
+						const prefix = genderPrefix(this.gender);
+
+						if (this.name && !prefix) {
+							return "Make up your mind, gender is a fixed concept for me";
+						}
+
+						if (this.name && prefix) {
+							return `Greetings ${prefix} ${this.name}`;
+						}
+
 						if(this.name) {
 							return `Greetings ${this.name}!`;
 						}
+
 						return "Greetings humanoid!";
 					}
 				}
