@@ -19,7 +19,7 @@
 			</ul>
 
 			<ul>
-				<li v-for="(value, key) in person"><strong>{{key}}</strong> {{value}}</li>
+				<li v-for="(value, key) in person"><strong>{{key | capitalise}}</strong> {{value}}</li>
 			</ul>
 
 			<pre>
@@ -43,6 +43,11 @@
 					person: {
 						name: "Joe Joe Joe",
 						age: 64
+					}
+				},
+				filters: {
+					capitalise: function(text) {
+						return text[0].toUpperCase() + text.slice(1);
 					}
 				}
 			})
