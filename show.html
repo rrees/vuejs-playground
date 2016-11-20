@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF8">
+	</head>
+
+	<body>
+		<div id="app">
+
+			<label>Show Princesses <input type="checkbox" v-model="showPrincesses"></label>
+
+			<ul v-show="showPrincesses">
+				<li v-for="princess in princesses">{{princess}}</li>
+			</ul>
+		</div>
+
+		<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+
+		<script>
+
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					showPrincesses: false,
+					princesses: [
+						"Snow White",
+						"Jasmine",
+						"Mulan",
+					]
+				}
+			})
+		</script>
+	</body>
+
+</html>
