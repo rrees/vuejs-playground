@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+
+	<body>
+		<div id="app" class="container-fluid">
+			{{message}}
+
+			<form class="form-inline">
+				<input v-model.number="a" class="form-control">
+				<input v-model.number="b" class="form-control">
+				<button type="submit" @click.prevent="calculate">Calculate</button>
+			</form>
+
+			<h2 v-show="c">{{a}} + {{b}} = {{c}}</h2>
+			<pre>
+				{{$data}}
+			</pre>
+		</div>
+
+
+		<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+
+		<script>
+
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					message: "Hello world",
+					a: undefined,
+					b: undefined,
+					c: undefined
+				},
+				methods: {
+					calculate: function() {
+						const vm = this;
+						vm.c = vm.a + vm.b;
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>
