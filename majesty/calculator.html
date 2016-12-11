@@ -10,16 +10,16 @@
 			{{message}}
 
 			<form class="form-inline">
-				<input v-model.number="a" class="form-control">
-				<select v-model="operator" class="form-control">
+				<input v-model.number="a" @focus="reset" class="form-control">
+				<select v-model="operator" @focus="reset" class="form-control">
 					<option value="+">+</option>
 					<option value="-">-</option>
 				</select>
-				<input v-model.number="b" class="form-control">
+				<input v-model.number="b" @focus="reset" class="form-control">
 				<button type="submit" @click.prevent="calculate">Calculate</button>
 			</form>
 
-			<h2 v-show="c">{{a}} + {{b}} = {{c}}</h2>
+			<h2 v-show="c !== undefined">{{a}} + {{b}} = {{c}}</h2>
 			<pre>
 				{{$data}}
 			</pre>
@@ -48,6 +48,9 @@
 						}
 
 						vm.c = vm.a + vm.b;
+					},
+					reset: function() {
+						this.c = undefined;
 					}
 				}
 			})
