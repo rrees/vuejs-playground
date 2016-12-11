@@ -11,6 +11,10 @@
 
 			<form class="form-inline">
 				<input v-model.number="a" class="form-control">
+				<select v-model="operator" class="form-control">
+					<option value="+">+</option>
+					<option value="-">-</option>
+				</select>
 				<input v-model.number="b" class="form-control">
 				<button type="submit" @click.prevent="calculate">Calculate</button>
 			</form>
@@ -32,11 +36,17 @@
 					message: "Hello world",
 					a: undefined,
 					b: undefined,
-					c: undefined
+					c: undefined,
+					operator: "+"
 				},
 				methods: {
 					calculate: function() {
 						const vm = this;
+						if(vm.operator === '-') {
+							vm.c = vm.a - vm.b;
+							return;
+						}
+
 						vm.c = vm.a + vm.b;
 					}
 				}
