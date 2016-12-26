@@ -10,6 +10,17 @@
 			{{message}}
 			<p>{{outcome}}</p>
 
+			<form>
+				<div class="form-group">
+					<label for="new-candidate-name">Candidate name</label>
+					<input id="new-candidate-name" type="text" required v-model="candidateName" class="form-control">
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn" @click.prevent="addCandidate">Add candidate</button>
+				</div>
+			</form>
+
 			<pre>
 				{{$data}}
 			</pre>
@@ -24,7 +35,17 @@
 				el: '#app',
 				data: {
 					message: "Hello world",
+					candidateName: undefined,
 					candidates: []
+				},
+				methods: {
+					addCandidate: function() {
+						const vm = this;
+						if(vm.candidateName) {
+							vm.candidates.push({candidateName: vm.candidateName, votes: 0});
+							vm.candidateName = undefined;
+						}
+					}
 				},
 				computed: {
 					outcome: function() {
