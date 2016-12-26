@@ -53,6 +53,12 @@
 						if(!vm.candidates || vm.candidates.length == 0) {
 							return "There are no candidates currently"
 						}
+
+						const candidatesWithVotes = vm.candidates.filter((c) => c.votes > 0);
+
+						if(candidatesWithVotes.length == 0) {
+							return "No candidates have been voted for";
+						}
 					}
 				}
 			})
