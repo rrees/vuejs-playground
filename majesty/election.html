@@ -18,8 +18,13 @@
 				<h2>Candidates</h2>
 
 				<ul>
-					<li v-for="candidate in candidates">
+					<li v-for="(candidate, index) in candidates">
 						<p>{{candidate.name}} ({{candidate.votes}} votes so far)</p>
+						<form class="form-inline">
+							<div class="form-group">
+								<button type="submit" @click.prevent="addVote(index)">Vote</button>
+							</div>
+						</form>
 					</li>
 				</ul>
 
@@ -62,6 +67,10 @@
 							vm.candidates.push({name: vm.candidateName, votes: 0});
 							vm.candidateName = undefined;
 						}
+					},
+					addVote: function(candidateIndex) {
+						//console.log(candidateIndex);
+						this.candidates[candidateIndex]['votes'] += 1;
 					}
 				},
 				computed: {
