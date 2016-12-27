@@ -3,12 +3,29 @@
 	<head>
 		<meta charset="UTF8">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<title>Election exercise</title>
 	</head>
 
 	<body>
 		<div id="app" class="container-fluid">
 			{{message}}
+
+			<h2>Election Outcome</h2>
+
 			<p>{{outcome}}</p>
+
+			<div v-show="candidates.length > 0">
+				<h2>Candidates</h2>
+
+				<ul>
+					<li v-for="candidate in candidates">
+						<p>{{candidate.name}} ({{candidate.votes}} votes so far)</p>
+					</li>
+				</ul>
+
+			</div>
+
+			<h2>Candidate Management</h2>
 
 			<form>
 				<div class="form-group">
@@ -42,7 +59,7 @@
 					addCandidate: function() {
 						const vm = this;
 						if(vm.candidateName) {
-							vm.candidates.push({candidateName: vm.candidateName, votes: 0});
+							vm.candidates.push({name: vm.candidateName, votes: 0});
 							vm.candidateName = undefined;
 						}
 					}
