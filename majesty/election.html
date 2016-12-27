@@ -53,6 +53,18 @@
 
 		<script>
 
+			function sortByVotes(a, b) {
+				if(a.votes === b.votes) {
+					return 0;
+				}
+
+				if(a.votes > b.votes) {
+					return -1;
+				}
+
+				return 1;
+			}
+
 			const vm = new Vue({
 				el: '#app',
 				data: {
@@ -80,11 +92,21 @@
 							return "There are no candidates currently"
 						}
 
-						const candidatesWithVotes = vm.candidates.filter((c) => c.votes > 0);
+						const candidatesWithVotes
+							= vm.candidates
+								.filter((c) => c.votes > 0)
+								.sort(sortByVotes);
 
-						if(candidatesWithVotes.length == 0) {
+						if(candidatesWithVotes.length === 0) {
 							return "No candidates have been voted for";
 						}
+
+						if(candidatesWithVotes.length === 1
+							|| candidatesWithVotes[0].votes > candidatesWithVotes[1].votes) {
+							return `Our mayor is ${candidatesWithVotes[0].name}`;
+						}
+
+						return "The vote is tied";
 					}
 				}
 			})
