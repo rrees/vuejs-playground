@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<title>Election exercise</title>
+	</head>
+
+	<body>
+		<div id="app" class="container-fluid">
+			{{message}}
+
+			<h2>Election Outcome</h2>
+
+			<p>{{outcome}}</p>
+
+			<div v-show="candidates.length > 0">
+				<h2>Candidates</h2>
+
+				<ul>
+					<li v-for="(candidate, index) in candidates">
+						<p>{{candidate.name}} ({{candidate.votes}} votes so far)</p>
+						<form class="form-inline">
+							<div class="form-group">
+								<button type="submit" @click.prevent="addVote(index)">Vote</button>
+							</div>
+						</form>
+					</li>
+				</ul>
+
+			</div>
+
+			<h2>Candidate Management</h2>
+
+			<form>
+				<div class="form-group">
+					<label for="new-candidate-name">Candidate name</label>
+					<input id="new-candidate-name" type="text" required v-model="candidateName" class="form-control">
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn" @click.prevent="addCandidate">Add candidate</button>
+				</div>
+			</form>
+
+			<pre>
+				{{$data}}
+			</pre>
+		</div>
+
+
+		<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+
+		<script>
+
+			function sortByVotes(a, b) {
+				if(a.votes === b.votes) {
+					return 0;
+				}
+
+				if(a.votes > b.votes) {
+					return -1;
+				}
+
+				return 1;
+			}
+
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					message: "Hello world",
+					candidateName: undefined,
+					candidates: []
+				},
+				methods: {
+					addCandidate: function() {
+						const vm = this;
+						if(vm.candidateName) {
+							vm.candidates.push({name: vm.candidateName, votes: 0});
+							vm.candidateName = undefined;
+						}
+					},
+					addVote: function(candidateIndex) {
+						//console.log(candidateIndex);
+						this.candidates[candidateIndex]['votes'] += 1;
+					}
+				},
+				computed: {
+					outcome: function() {
+						const vm = this;
+						if(!vm.candidates || vm.candidates.length == 0) {
+							return "There are no candidates currently"
+						}
+
+						const candidatesWithVotes
+							= vm.candidates
+								.filter((c) => c.votes > 0)
+								.sort(sortByVotes);
+
+						if(candidatesWithVotes.length === 0) {
+							return "No candidates have been voted for";
+						}
+
+						if(candidatesWithVotes.length === 1
+							|| candidatesWithVotes[0].votes > candidatesWithVotes[1].votes) {
+							return `Our mayor is ${candidatesWithVotes[0].name}`;
+						}
+
+						return "The vote is tied";
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>
