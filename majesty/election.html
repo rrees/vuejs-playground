@@ -40,7 +40,7 @@
 
 			<form>
 				<div class="form-group">
-					<input type="text" placeholder="Reset votes">
+					<input type="text" placeholder="Hit delete to reset votes" @keyup.delete="resetVotes">
 				</div>
 			</form>
 
@@ -109,6 +109,10 @@
 								votes: 0
 							}
 						];
+					},
+					resetVotes: function() {
+						const vm = this;
+						vm.candidates.forEach((candidate) => candidate.votes = 0);
 					}
 				},
 				computed: {
