@@ -30,6 +30,20 @@
 
 			</div>
 
+			<h2>Election Management</h2>
+
+			<form>
+				<div class="form-group">
+					<button class="btn" type="submit" @click.prevent="initialiseElection">Populate candidate lists</button>
+				</div>
+			</form>
+
+			<form>
+				<div class="form-group">
+					<input type="text" placeholder="Reset votes">
+				</div>
+			</form>
+
 			<h2>Candidate Management</h2>
 
 			<form>
@@ -83,6 +97,18 @@
 					addVote: function(candidateIndex) {
 						//console.log(candidateIndex);
 						this.candidates[candidateIndex]['votes'] += 1;
+					},
+					initialiseElection: function() {
+						this.candidates = [
+							{
+								name: "Joe Example",
+								votes: 0
+							},
+							{
+								name: "Carrie Fisher",
+								votes: 0
+							}
+						];
 					}
 				},
 				computed: {
@@ -103,7 +129,7 @@
 
 						if(candidatesWithVotes.length === 1
 							|| candidatesWithVotes[0].votes > candidatesWithVotes[1].votes) {
-							return `Our mayor is ${candidatesWithVotes[0].name}`;
+							return `Our mayor is ${candidatesWithVotes[0].name	}`;
 						}
 
 						return "The vote is tied";
