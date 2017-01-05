@@ -10,6 +10,8 @@
 			{{message}}
 
 			<greet></greet>
+
+			<greet name="Carrie"></greet>
 			<pre>
 				{{$data}}
 			</pre>
@@ -21,7 +23,8 @@
 		<script>
 
 			Vue.component('greet', {
-				template: `<h2>Hello world</h2>`
+				props: ['name'],
+				template: `<h2>Hello {{name || 'world'}}</h2>`
 			});
 
 			const vm = new Vue({
