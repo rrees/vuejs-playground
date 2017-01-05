@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+
+	<body>
+		<div id="app" class="container-fluid">
+			{{message}}
+
+			<greet></greet>
+			<pre>
+				{{$data}}
+			</pre>
+		</div>
+
+
+		<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+
+		<script>
+
+			Vue.component('greet', {
+				template: `<h2>Hello world</h2>`
+			});
+
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					message: "Hello world"
+				}
+			})
+		</script>
+	</body>
+
+</html>
