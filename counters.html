@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<style>
+			.counter-group {
+				display: flex;
+			}
+			.counter {
+				padding: 1rem;
+			}
+			.count {
+				font-size: 200%;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" class="container-fluid">
+			{{message}}
+
+			<div class="counter-group">
+
+				<counter></counter>
+
+				<counter></counter>
+
+				<counter></counter>
+
+			</div>
+
+			<pre>
+				{{$data}}
+			</pre>
+		</div>
+
+		<template id="counter">
+			<div class="counter">
+				<p class="count">{{counter}}</p>
+				<div><button v-on:click="vote">Vote</button></div>
+			</div>
+		</template>
+
+		<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+
+		<script>
+
+			Vue.component('counter', {
+				template: "#counter",
+				data: function() {
+					return {
+						counter: 0
+					};
+				},
+				methods: {
+					vote: function() {
+						this.counter += 1;
+					}
+				}
+			});
+
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					message: "Hello world"
+				}
+			})
+		</script>
+	</body>
+
+</html>
