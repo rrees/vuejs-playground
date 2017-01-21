@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF8">
+		<title>Planets</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+
+	<body>
+		<div id="app" class="container-fluid">
+			{{message}}
+
+			<div class="planet-group">
+				<planet v-for="planet in planets" :planet="planet"></planet>
+			</div>
+
+			<pre>
+				{{$data}}
+			</pre>
+		</div>
+
+		<template id="planet-component">
+			<div class="planet-data">
+				<p class="planet-data--name">{{planet.name}}</p>
+				<button class="btn">Visit</button>
+			</div>
+		</template>
+
+
+		<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+
+		<script>
+
+			Vue.component('planet', {
+				template: "#planet-component",
+				props: ['planet']
+			});
+
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					message: "Hello world",
+					planets: [
+						{
+							name: "Mercury"
+						},
+						{
+							name: "Venus"
+						}
+					]
+				}
+			})
+		</script>
+	</body>
+
+</html>
