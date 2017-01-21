@@ -33,7 +33,13 @@
 
 			Vue.component('planet', {
 				template: "#planet-component",
-				props: ['planet']
+				props: ['planet'],
+				data: function() {
+					return {
+						visitable: true,
+						visits: 0
+					}
+				}
 			});
 
 			const vm = new Vue({
