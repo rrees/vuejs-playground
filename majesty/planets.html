@@ -11,7 +11,7 @@
 			{{message}}
 
 			<div class="planet-group">
-				<planet v-for="planet in planets" :planet="planet"></planet>
+				<planet v-for="planet in planets" :name="planet.name"></planet>
 			</div>
 
 			<pre>
@@ -21,8 +21,11 @@
 
 		<template id="planet-component">
 			<div class="planet-data">
-				<p class="planet-data--name">{{planet.name}}</p>
-				<button class="btn">Visit</button>
+				<p class="planet-data--name">{{name}}</p>
+				<p>{{visits}}</p>
+				<div class="planet-data--actions" v-show="visitable">
+				<button class="btn" v-on:click="visit">Visit</button>
+				</div>
 			</div>
 		</template>
 
@@ -33,11 +36,24 @@
 
 			Vue.component('planet', {
 				template: "#planet-component",
-				props: ['planet'],
+				props: ['name'],
 				data: function() {
 					return {
-						visitable: true,
 						visits: 0
+					}
+				},
+				computed: {
+					visitable: function() {
+						if(this.visits < 3) {
+							return true;
+						}
+
+						return false;
+					}
+				},
+				methods: {
+					visit: function() {
+						this.visits++;
 					}
 				}
 			});
