@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Scorecard - VueJS Playground</title>
+		<meta charset="UTF8">
+	</head>
+
+	<body>
+		<h1>Scorecard</h1>
+		<div id="app">
+
+			<ul class="player-list" v-if="players.length > 0">
+				<li v-for="(player, idx) in players">{{player.name}} - <input type="number"
+					v-model.number="players[idx].score"></li>
+			</ul>
+
+			<div class="form-control">
+				<label for="player-name">Player name</label>
+				<input id="player-name" type="text" v-model="newPlayerName">
+				<button v-on:click="addPlayer">Add</button>
+			</div>
+
+			<pre>
+				{{$data}}
+			</pre>
+		</div>
+
+
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+		<script>
+
+			const vm = new Vue({
+				el: '#app',
+				data: {
+					players: [],
+					newPlayerName: undefined,
+				},
+				methods: {
+					addPlayer: function() {
+						if(!this.newPlayerName) {
+							return;
+						}
+
+						this.players.push({
+							name: this.newPlayerName,
+							score: 0
+						});
+						this.newPlayerName = undefined;
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>
