@@ -44,16 +44,24 @@
 
 		<script>
 
+			function decode(mapping, letter) {
+				return mapping[letter] ? mapping[letter] : letter;
+			}
+
 			const vm = new Vue({
 				el: '#app',
 				data: {
 					message: "Hello world",
-					mapping: {},
+					letters: "abcdefghijklmnopqrstuvwxyz".split(''),
+					mapping: {
+						'l': 'o',
+						'o': 't',
+					},
 					encodedMessage: "",
 				},
 				computed: {
 					decodedMessage: function() {
-						return this.encodedMessage.split('').map((letter) => letter).join('');
+						return this.encodedMessage.split('').map((letter) => decode(this.mapping, letter)).join('');
 					}
 				}
 			})
