@@ -53,7 +53,7 @@
 				},
 				computed: {
 					decodedMessage: function() {
-						return this.encodedMessage;
+						return this.encodedMessage.split('').map((letter) => letter).join('');
 					}
 				}
 			})
