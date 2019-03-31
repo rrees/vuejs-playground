@@ -5,34 +5,60 @@
 		<title>Decoder - VueJS</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<style>
+			.mapping-panel {
+				display: flex;
+				flex-wrap: wrap;
+			}
+			.mapping-panel.mapping-display {
+				margin-right: 1rem;
+			}
+		</style>
 	</head>
 
 	<body>
 		<div id="app">
 				<section class="section">
 
-				<div class="container">	
+					<div class="container">	
 
-					<h1 class="title">Decoder utility</h1>
+						<h1 class="title">Decoder utility</h1>
 
-					<p>{{message}}</p>
+						<p>{{message}}</p>
 
 
 
-					<div class="field">
-						<div class="control">
-						<textarea id="encoded-text" class="textarea" placeholder="Encoded text"
-							v-model="encodedMessage"></textarea>
+						<div class="field">
+							<div class="control">
+							<textarea id="encoded-text" class="textarea" placeholder="Encoded text"
+								v-model="encodedMessage"></textarea>
+							</div>
+						</div>
+						<div class="field">
+							<div class="control">
+								<textarea id="decoded-text" class="textarea" placeholder="Decoded text"
+								v-model="decodedMessage"></textarea>
+							</div>
+						</div>
+
+						<div class="mapping-panel">
+							<character-mapping
+								v-for="(letter, mappedLetter) in mapping"
+								v-bind:key="letter"
+								v-bind:letter="letter"
+								v-bind:mapped-letter="mappedLetter"
+							></character-mapping>
+						</div>
+
+						<div class="field">
+							<div class="control">
+								<textarea id="mapping" class="textarea" placeholder="Mapping data"
+								v-model="mappingJson"></textarea>
+							</div>
 						</div>
 					</div>
-					<div class="field">
-						<div class="control">
-							<textarea id="decoded-text" class="textarea" placeholder="Decoded text"
-							v-model="decodedMessage"></textarea>
-						</div>
-					</div>
-				</div>
-			</section>
+				</section>
 
 			<pre>
 				{{$data}}
@@ -44,24 +70,42 @@
 
 		<script>
 
+
+			function createAlphabet() {
+				return "abcdefghijklmnopqrstuvwxyz".split('');
+			}
+
+			const alphabet = createAlphabet();
+
 			function decode(mapping, letter) {
 				return mapping[letter] ? mapping[letter] : letter;
 			}
+
+			function createMapping() {
+				const mapping = {};
+				alphabet.forEach((letter) => mapping[letter] = letter);
+				return mapping;
+			}
+
+
+			Vue.component('character-mapping', {
+				props: ['letter', 'mappedLetter'],
+				template: '<span class="mapping-panel mapping-display">{{letter}} : {{mappedLetter}}</span>'
+			})
 
 			const vm = new Vue({
 				el: '#app',
 				data: {
 					message: "Hello world",
-					letters: "abcdefghijklmnopqrstuvwxyz".split(''),
-					mapping: {
-						'l': 'o',
-						'o': 't',
-					},
+					letters: alphabet,
+					mapping: createMapping(),
 					encodedMessage: "",
+					mappingJson: JSON.stringify(createMapping()),
 				},
 				computed: {
 					decodedMessage: function() {
-						return this.encodedMessage.split('').map((letter) => decode(this.mapping, letter)).join('');
+						const mapping = JSON.parse(this.mappingJson);
+						return this.encodedMessage.split('').map((letter) => decode(mapping, letter)).join('');
 					}
 				}
 			})
