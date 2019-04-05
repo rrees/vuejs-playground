@@ -6,6 +6,13 @@
     <title>Story Gaps | VueJS Playground</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+    <style>
+      .undecided {
+        font-style: italic;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <section class="section">
@@ -18,17 +25,21 @@
 
           <div class="columns">
             <div class="column">
-              <div class="select">
-                <select>
-                  <option>Select one...</option>
-                  <option>Town</option>
-                  <option>Village</option>
-                </select>
+              <div class="field">
+                <label for="settlement" class="label">Type of place you grew up</label>
+                <div id="settlement" class="select">
+                  <select>
+                    <option>Select one...</option>
+                    <option>Town</option>
+                    <option>Village</option>
+                  </select>
+                </div>
               </div>
             </div>
 
+
             <div class="column">
-              <p>In the <span>{{settlement}}</span> where I grew up, they used to burn a <span>thing</span> to celebrate an <span>event</span>.</p>
+              <p>In the <span class="undecided">{{settlement}}</span> where I grew up, they used to burn a <span>thing</span> to celebrate an <span>event</span>.</p>
             </div>
           </div>
         </div>
