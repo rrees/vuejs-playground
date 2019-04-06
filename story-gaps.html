@@ -18,10 +18,8 @@
     <section  id="app" class="section">
       <div class="container">
         <h1 class="title">
-          Hello World
+          Story Gap prototype
         </h1>
-
-        <p>{{message}}</p>
 
         <div class="columns">
           <div class="column">
@@ -54,6 +52,7 @@
 
           <div class="column">
             <p>In the <span class="undecided">{{settlement}}</span> where I grew up, they used to burn <span>{{thing}}</span> to celebrate <span>{{event}}</span>.</p>
+            <p>Everyone in the <span class="undecided">{{settlement}}</span> would share the ashes and spread them on their fields or gardens.</p>
           </div>
         </div>
       </div>
@@ -70,7 +69,6 @@
         const vm = new Vue({
           el: '#app',
           data: {
-            message: "Hello world",
             settlement: "choose a place",
             thing: "an innocuous thing",
             event: "an event",
