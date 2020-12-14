@@ -46,21 +46,21 @@
             <div class="field">
               <label for="a-thing" class="label">Some innocuous object</label>
               <div class="control">
-                <input id="a-thing" class="input" type="text" v-model="thing">
+                <input id="a-thing" class="input" type="text" v-model="thing" placeholder="a model house">
               </div>
             </div>
 
             <div class="field">
               <label for="event" class="label">An important event</label>
               <div class="control">
-                <input id="event" class="input" type="text" v-model="event">
+                <input id="event" class="input" type="text" v-model="event" placeholder="the birth of a child">
               </div>
             </div>            
           </div>
 
 
           <div class="column">
-            <p>In the <option-display v-bind:value="settlement"></option-display> where I grew up, they used to burn <span>{{thing}}</span> to celebrate <span>{{event}}</span>.</p>
+            <p>In the <option-display v-bind:value="settlement"></option-display> where I grew up, they used to burn <option-display v-bind:value="thing"></option-display> to celebrate <option-display v-bind:value="event"></option-display>.</p>
             <p>Everyone in the <option-display v-bind:value="settlement"></option-display> would share the ashes and spread them on their fields or gardens.</p>
           </div>
         </div>
@@ -90,8 +90,8 @@
           el: '#app',
           data: {
             settlement: '',
-            thing: "an innocuous thing",
-            event: "an event",
+            thing: '',
+            event: '',
           },
           computed: {
             settlementText: function() {
