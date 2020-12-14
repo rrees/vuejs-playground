@@ -4,19 +4,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Story Gaps | VueJS Playground</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 
     <style>
+      p {
+        margin-bottom: 0.5rem;
+      }
+      
       .undecided {
         font-style: italic;
         font-weight: bold;
       }
+
+      .decided {
+        font-style: italic;
+      }
+
     </style>
   </head>
   <body>
     <section  id="app" class="section">
-      <div class="container">
+      <div class="container pb-4">
         <h1 class="title">
           Story Gap prototype
         </h1>
@@ -27,7 +36,7 @@
               <label for="settlement" class="label">Type of place you grew up</label>
               <div class="select">
                 <select id="settlement" v-model="settlement">
-                  <option>Select one...</option>
+                  <option disabled value=''>Select one...</option>
                   <option value="town">Town</option>
                   <option value="village">Village</option>
                 </select>
@@ -51,8 +60,8 @@
 
 
           <div class="column">
-            <p>In the <span class="undecided">{{settlement}}</span> where I grew up, they used to burn <span>{{thing}}</span> to celebrate <span>{{event}}</span>.</p>
-            <p>Everyone in the <span class="undecided">{{settlement}}</span> would share the ashes and spread them on their fields or gardens.</p>
+            <p>In the <option-display v-bind:value="settlement"></option-display> where I grew up, they used to burn <span>{{thing}}</span> to celebrate <span>{{event}}</span>.</p>
+            <p>Everyone in the <option-display v-bind:value="settlement"></option-display> would share the ashes and spread them on their fields or gardens.</p>
           </div>
         </div>
       </div>
@@ -66,12 +75,28 @@
 
       <script>
 
+        Vue.component('option-display', {
+          props: ['value',],
+          computed: {
+            valueText: function() {
+              return this.value || 'make a choice';
+            },
+            isSet: function() { return this.value !== ''},
+          },
+          template: '<span v-bind:class="{decided: isSet, undecided: !isSet}">{{valueText}}</span>',
+        });
+
         const vm = new Vue({
           el: '#app',
           data: {
-            settlement: "choose a place",
+            settlement: '',
             thing: "an innocuous thing",
             event: "an event",
+          },
+          computed: {
+            settlementText: function() {
+              return this.settlement !== '' ? this.settlement : "choose a place";
+            },
           }
         })
       </script>
