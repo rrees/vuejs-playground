@@ -60,7 +60,7 @@
 
 
           <div class="column">
-            <p>In the <option-display v-bind:value="settlement"></option-display> where I grew up, they used to burn <option-display v-bind:value="thing"></option-display> to celebrate <option-display v-bind:value="event"></option-display>.</p>
+            <p>In the <option-display v-bind:value="settlement"></option-display> where I grew up, they used to burn <option-display v-bind:value="thing" choice-type="a thing"></option-display> to celebrate <option-display v-bind:value="event" choice-type="an event"></option-display>.</p>
             <p>Everyone in the <option-display v-bind:value="settlement"></option-display> would share the ashes and spread them on their fields or gardens.</p>
           </div>
         </div>
@@ -76,10 +76,10 @@
       <script>
 
         Vue.component('option-display', {
-          props: ['value',],
+          props: ['value','choiceType'],
           computed: {
             valueText: function() {
-              return this.value || 'make a choice';
+              return this.value || `choose ${this.choiceType || "something"}`;
             },
             isSet: function() { return this.value !== ''},
           },
